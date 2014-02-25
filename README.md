@@ -12,27 +12,28 @@ nodeで動くのでnodeのインストールが必要です。
 
 ```
 git clone https://github.com/ysugimoto/TFCRatioConverter.git
+
 export PATH=$PATH:/path/to/TFCRatioConverter/bin
 ```
 
-あとはコマンドラインで起動できます。変換後の出力ファイルは実行ディレクトリです。
+あとはコマンドラインで起動できます。
 なお、画像は処理しませんので、自前で各倍率に合わせたファイルを用意してください（要望があれば作る）
+実行形式は以下のとおりです。
 
 
 ```
-$ TFCRatioConverter [targetFile] [convertRaatio=20]
+$ TFCRatioConverter target_file [arguments]
 ```
 
-##### targetFile(required)
+##### target_file
 変換対象のToolkit for CreateJSで書き出されたJSファイル。
 
-##### convertRatio(optional=20)
-変換rateを指定。デフォルトは20（devicePixelRatio=2）に変換します。devicePixelRatio = 1なら10を指定してください。
-
+##### [arguments]
+出力ファイルや変換レートなどの実行時パラメータを渡せます。詳しくは`TFCRatioConverter -h`としてヘルプを見てください。
 
 ### TODO
-Android4.1系では、描画領域拡大と画像サイズ増加によりパフォーマンスが実用レベルにならない可能性があります。
-iOSでは問題なさそうなので、デバイスターゲットを考慮出来る場合には有用だと思います。
+Android4.1系では、画面サイズいっぱいのアニメーションの場合に、描画領域拡大と画像サイズ増加によりパフォーマンスが著しく落ちる現象を確認しています。
+iOSでは問題なさそうなので、デバイスターゲットを考慮出来る場合、または簡単なアニメーションの場合には有用だと思います。
 
 
 ### LICENSE

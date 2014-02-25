@@ -9,6 +9,7 @@ var RectangleConverter = require('../converters/RectangleConverter');
 var TextConverter      = require('../converters/TextConverter');
 var fs                 = require('fs');
 var path               = require('path');
+var Argv               = require('../util/argv');
 
 function TFCRatioConverter(file, ratio) {
     var source = path.resolve(__dirname + '/', file);
@@ -31,16 +32,7 @@ TFCRatioConverter.prototype.convert = function() {
         src,
         analyze,
         tmp,
-        ratio = 2;
-
-    switch ( this.ratio ) {
-        case 10:
-            ratio = 0.5;
-            break;
-        case 20:
-            ratio = 2;
-            break;
-    }
+        ratio = this.ratio;
 
     for ( ; i < size; ++i ) {
         this.line = i + 1; // stack line
@@ -241,7 +233,7 @@ TFCRatioConverter.prototype.convert = function() {
                     return match.replace(args, GraphicsConverter.drawPolyStar.execute(args, ratio));
                 });
             }
-            
+
             // decodePath
             if ( /\.(?:p|decodePath)\(.+?\)/.test(src) ) {
                 ++times;
@@ -270,25 +262,23 @@ TFCRatioConverter.prototype.getConvertedFileName = function() {
 TFCRatioConverter.showUsage = function() {
     console.log('Toolkit for CreateJS ratio converter tool v.' + PROGRAM_VERSION);
     console.log('===========================================================================');
-    console.log('Usage:');
+    console.log('Usage: TFCRationConverter target_file [arguments]');
     console.log('');
-    console.log('$ TFCRationConverter [targetFile] [convertRatio]');
-    console.log('    targetFile:   convert target file. filename willbe replaced +-ratioX.js.');
-    console.log('    convertRatio: convert ratio. this parameter must be 20 / 10 ... ');
-    console.log('');
+    console.log('arguments:');
+    console.log('  -o, --output   convert output file. If empty, output filename will be replaced [target_file_body]-ratio[ratio].js.');
+    console.log('  -r, --ratio    convert ratio. path caluculated by this rate. ( default 2 )');
 };
 
-var cmdArg       = process.argv;
-var targetFile   = cmdArg[2];
-var convertRatio = cmdArg[3] || 20;
+var args       = Argv.parse();
+var targetFile = process.argv[2];
 
-if ( ! targetFile || path.extname(targetFile) !== '.js' ) {
+if ( args.get('help') !== null || ! targetFile || path.extname(targetFile) !== '.js' ) {
     TFCRatioConverter.showUsage();
     process.exit(0);
 }
-var tfc    = new TFCRatioConverter(path.resolve(process.cwd() + '/' + targetFile), convertRatio);
+var tfc    = new TFCRatioConverter(path.resolve(process.cwd() + '/' + targetFile), args.get('ratio'));
 var buffer = tfc.convert();
-var dest   = tfc.getConvertedFileName();
+var dest   = args.get('output') || tfc.getConvertedFileName();
 
 fs.writeFile(dest, buffer, {encoding:'utf8'}, function(err) {
     if ( err ) {
