@@ -1,4 +1,5 @@
 var BaseConverter = require('../BaseConverter');
+var log           = require('../../util/log');
 
 module.exports = DrawCircle;
 
@@ -22,7 +23,7 @@ DrawCircle.prototype.convert = function() {
         return arg * ratio;
     });
 
-    console.log('DrawCircle convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
+    log('DrawCircle convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
 
     return cvd.join(',');
 };

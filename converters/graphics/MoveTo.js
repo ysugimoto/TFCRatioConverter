@@ -1,4 +1,5 @@
 var BaseConverter = require('../BaseConverter');
+var log           = require('../../util/log');
 
 module.exports = MoveTo;
 
@@ -22,7 +23,7 @@ MoveTo.prototype.convert = function() {
         return arg * ratio;
     });
 
-    console.log('MoveTo convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
+    log('MoveTo convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
 
     return cvd.join(',');
 };

@@ -1,4 +1,5 @@
 var BaseConverter = require('../BaseConverter');
+var log           = require('../../util/log');
 
 module.exports = BezierCurveTo;
 
@@ -22,7 +23,7 @@ BezierCurveTo.prototype.convert = function() {
         return arg * ratio;
     });
 
-    console.log('BezierCurveTo convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
+    log('BezierCurveTo convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
 
     return cvd.join(',');
 };

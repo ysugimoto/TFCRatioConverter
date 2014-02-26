@@ -1,4 +1,5 @@
 var BaseConverter = require('../BaseConverter');
+var log           = require('../../util/log');
 
 module.exports = ArcTo;
 
@@ -22,7 +23,7 @@ ArcTo.prototype.convert = function() {
         return arg * ratio;
     });
 
-    console.log('ArcTo convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
+    log('ArcTo convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
 
     return cvd.join(',');
 };

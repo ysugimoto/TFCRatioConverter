@@ -1,4 +1,5 @@
 var BaseConverter = require('../BaseConverter');
+var log           = require('../../util/log');
 
 module.exports = DrawRoundRectComplex;
 
@@ -28,7 +29,7 @@ DrawRoundRectComplex.prototype.convert = function() {
     cvd[6] = this.args[6];
     cvd[7] = this.args[7];
     
-    console.log('DrawRoundRectComplex convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
+    log('DrawRoundRectComplex convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
 
     return cvd.join(',');
 };

@@ -1,4 +1,5 @@
 var BaseConverter = require('./BaseConverter');
+var log           = require('../util/log');
 
 module.exports = TFCTransformConverter;
 
@@ -28,7 +29,7 @@ TFCTransformConverter.prototype.convert = function() {
         cvd[i] = this.args[i] * rate;
     }
 
-    console.log('Transform convert (' + this.args.join(', ') + ') -> (' + cvd.join(', ') + ')');
+    log('Transform convert (' + this.args.join(', ') + ') -> (' + cvd.join(', ') + ')');
 
     return cvd.join(',');
 };

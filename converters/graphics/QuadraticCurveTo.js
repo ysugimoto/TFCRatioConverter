@@ -1,4 +1,5 @@
 var BaseConverter = require('../BaseConverter');
+var log           = require('../../util/log');
 
 module.exports = QuadraticCurveTo;
 
@@ -22,7 +23,7 @@ QuadraticCurveTo.prototype.convert = function() {
         return arg * ratio;
     });
 
-    console.log('QuadraticCurveTo convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
+    log('QuadraticCurveTo convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
 
     return cvd.join(',');
 };

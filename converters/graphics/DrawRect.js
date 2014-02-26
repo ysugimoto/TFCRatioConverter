@@ -1,4 +1,5 @@
 var BaseConverter = require('../BaseConverter');
+var log           = require('../../util/log');
 
 module.exports = DrawRect;
 
@@ -22,7 +23,7 @@ DrawRect.prototype.convert = function() {
         return arg * ratio;
     });
 
-    console.log('DrawRect convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
+    log('DrawRect convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
 
     return cvd.join(',');
 };

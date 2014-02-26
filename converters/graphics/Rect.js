@@ -1,4 +1,5 @@
 var BaseConverter = require('../BaseConverter');
+var log           = require('../../util/log');
 
 module.exports = Rect;
 
@@ -22,7 +23,7 @@ Rect.prototype.convert = function() {
         return arg * ratio;
     });
 
-    console.log('Rect convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
+    log('Rect convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
 
     return cvd.join(',');
 };

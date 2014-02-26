@@ -1,4 +1,5 @@
 var BaseConverter = require('./BaseConverter');
+var log           = require('../util/log');
 
 module.exports = TFCRectangleConverter;
 
@@ -21,7 +22,7 @@ TFCRectangleConverter.prototype.convert = function(ratio) {
         return arg * ratio;
     });
 
-    console.log('Rectangle convert (' + this.args.join(', ') + ') -> (' + cvd.join(', ') + ')');
+    log('Rectangle convert (' + this.args.join(', ') + ') -> (' + cvd.join(', ') + ')');
 
     return cvd.join(',');
 };

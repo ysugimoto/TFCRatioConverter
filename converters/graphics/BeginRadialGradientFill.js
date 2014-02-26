@@ -1,4 +1,5 @@
 var BaseConverter = require('../BaseConverter');
+var log           = require('../../util/log');
 
 module.exports = BeginRadialGradientFill;
 
@@ -29,7 +30,7 @@ BeginRadialGradientFill.prototype.convert = function() {
     cvd[7] = this.args[7] * this.ratio;
 
 
-    console.log('BeginRadialGradientFill convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
+    log('BeginRadialGradientFill convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
 
     return cvd.join(',');
 };

@@ -1,4 +1,5 @@
 var BaseConverter = require('../BaseConverter');
+var log           = require('../../util/log');
 
 module.exports = Arc;
 
@@ -28,7 +29,7 @@ Arc.prototype.convert = function() {
         cvd[5] = this.args[5];
     }
     
-    console.log('Arc convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
+    log('Arc convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
 
     return cvd.join(',');
 };

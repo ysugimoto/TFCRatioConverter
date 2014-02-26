@@ -4,6 +4,7 @@ var Map64Base     = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456
 var MethodArgsMap = [2, 2, 4, 6, 0];
 var MethodMap     = ['moveTo', 'lineTo', 'quadraticCurveTo', 'bezierCurveTo', 'closePath'];
 var PathEncoder   = require('./PathEncoder');
+var log           = require('../../util/log');
 
 module.exports = DecodePath;
 
@@ -81,7 +82,7 @@ DecodePath.prototype.convert = function() {
 
     compiled = this._compile(decoded);
 
-    console.log('DecodePath convert (' + this.pathCode + ') -> (' + compiled + ')');
+    log('DecodePath convert (' + this.pathCode + ') -> (' + compiled + ')');
 
     return '"' + compiled + '"';
 };

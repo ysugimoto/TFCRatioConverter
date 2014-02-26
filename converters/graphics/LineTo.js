@@ -1,4 +1,5 @@
 var BaseConverter = require('../BaseConverter');
+var log           = require('../../util/log');
 
 module.exports = LineTo;
 
@@ -22,7 +23,7 @@ LineTo.prototype.convert = function() {
         return arg * ratio;
     });
 
-    console.log('LineTo convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
+    log('LineTo convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
 
     return cvd.join(',');
 };

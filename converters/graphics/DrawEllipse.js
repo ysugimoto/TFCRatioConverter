@@ -1,4 +1,5 @@
 var BaseConverter = require('../BaseConverter');
+var log           = require('../../util/log');
 
 module.exports = DrawEllipse;
 
@@ -22,7 +23,7 @@ DrawEllipse.prototype.convert = function() {
         return arg * ratio;
     });
 
-    console.log('DrawEllipse convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
+    log('DrawEllipse convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
 
     return cvd.join(',');
 };

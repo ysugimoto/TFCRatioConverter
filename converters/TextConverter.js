@@ -1,4 +1,5 @@
 var BaseConverter = require('./BaseConverter');
+var log           = require('../util/log');
 
 module.exports = TFCTextConverter;
 
@@ -23,7 +24,7 @@ TFCTextConverter.prototype.convert = function() {
     cvd[1] = this._convertFontSize(this.args[1]);
     cvd[2] = this.args[2];
 
-    console.log('Text convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
+    log('Text convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
 
     return cvd.join(',');
 };

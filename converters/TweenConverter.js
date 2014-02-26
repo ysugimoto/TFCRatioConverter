@@ -1,4 +1,5 @@
 var BaseConverter = require('./BaseConverter');
+var log           = require('../util/log');
 
 module.exports = TFCTweenConverter;
 
@@ -34,10 +35,10 @@ TFCTweenConverter.prototype.convert = function() {
     this.args[0] = '{' + objStr.join(',') + '}';
 
     if ( conv === true ) {
-        console.log('Tween convert (' + this.src + ') -> (' + this.args.join(', ') + ')');
+        log('Tween convert (' + this.src + ') -> (' + this.args.join(', ') + ')');
         return this.args.join(',');
     } else {
-        console.log('Tween convert: nothing to convert props. skipped: ' + this.src);
+        log('Tween convert: nothing to convert props. skipped: ' + this.src);
         return this.src;
     }
 };

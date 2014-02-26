@@ -1,4 +1,5 @@
 var BaseConverter = require('../BaseConverter');
+var log           = require('../../util/log');
 
 module.exports = DrawPolyStar;
 
@@ -26,7 +27,7 @@ DrawPolyStar.prototype.convert = function() {
     cvd[4] = this.args[4];
     cvd[5] = this.args[5];
     
-    console.log('DrawPolyStar convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
+    log('DrawPolyStar convert (' + this.src + ') -> (' + cvd.join(', ') + ')');
 
     return cvd.join(',');
 };
