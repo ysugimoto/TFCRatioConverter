@@ -1,7 +1,5 @@
 var defaults = { ratio: 2, output: "" };
-var aliases  = { "-r": "ratio", "-o": "output", "-h": "help" };
-
-module.exports = Argv;
+var aliases  = { "-r": "ratio", "-o": "output", "-h": "help", "-v": "verbose" };
 
 function Argv(args) {
     this.args = args;
@@ -36,3 +34,6 @@ Argv.parse = function() {
 
     return new Argv(parsed);
 };
+
+module.exports = Argv.parse();
+

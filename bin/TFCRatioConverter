@@ -10,6 +10,7 @@ var TextConverter      = require('../converters/TextConverter');
 var fs                 = require('fs');
 var path               = require('path');
 var Argv               = require('../util/argv');
+var log                = require('../util/log');
 
 function TFCRatioConverter(file, ratio) {
     var source = path.resolve(__dirname + '/', file);
@@ -46,7 +47,7 @@ TFCRatioConverter.prototype.convert = function() {
             // Convert transform size
             if ( /\.setTransform\(.+?\)/.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' converting setTransform.');
+                log('line: ' + this.line + ' converting setTransform.');
                 src = src.replace(/\.setTransform\((.+?)\)/g, function(match, args) {
                     return match.replace(args, TransformConverter.execute(args, ratio));
                 });
@@ -55,7 +56,7 @@ TFCRatioConverter.prototype.convert = function() {
             // convert regtangle size
             if ( /\.Rectangle\(.+?\)/.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' converting cjs.rectangle.');
+                log('line: ' + this.line + ' converting cjs.rectangle.');
                 src = src.replace(/\.Rectangle\((.+?)\)/, function(match, args) {
                     return match.replace(args, RectangleConverter.execute(args, ratio));
                 });
@@ -64,7 +65,7 @@ TFCRatioConverter.prototype.convert = function() {
             // Convert Tween.to method
             if ( /\.to\((.+?)\)[.|;]/.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' checking tween.');
+                log('line: ' + this.line + ' checking tween.');
                 src = src.replace(/to\((.+?)\)[.|;]/g, function(match, args) {
                     return match.replace(args, TweenConverter.execute(args, ratio));
                 });
@@ -73,7 +74,7 @@ TFCRatioConverter.prototype.convert = function() {
             // Convert Text size
             if ( /\.Text\((.+?)\)[.|;]/.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' converting text size.');
+                log('line: ' + this.line + ' converting text size.');
                 src = src.replace(/\.Text\((.+?)\)[.|;]/g, function(match, args) {
                     return match.replace(args, TextConverter.execute(args, ratio));
                 });
@@ -84,7 +85,7 @@ TFCRatioConverter.prototype.convert = function() {
             // moveTo
             if ( /\.(?:mt|moveTo)\(.+?\)/g.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' converting moveTo.');
+                log('line: ' + this.line + ' converting moveTo.');
                 src = src.replace(/\.(?:mt|moveTo)\((.+?)\)/g, function(match, args) {
                     return match.replace(args, GraphicsConverter.moveTo.execute(args, ratio));
                 });
@@ -93,7 +94,7 @@ TFCRatioConverter.prototype.convert = function() {
             // arc
             if ( /\.(?:a|arc)\(.+?\)/g.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' converting arc.');
+                log('line: ' + this.line + ' converting arc.');
                 src = src.replace(/\.(?:a|arc)\((.+?)\)/g, function(match, args) {
                     return match.replace(args, GraphicsConverter.arc.execute(args, ratio));
                 });
@@ -102,7 +103,7 @@ TFCRatioConverter.prototype.convert = function() {
             // arcTo
             if ( /\.(?:at|arcTo)\(.+?\)/g.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' converting arcTo.');
+                log('line: ' + this.line + ' converting arcTo.');
                 src = src.replace(/\.(?:at|arcTo)\((.+?)\)/g, function(match, args) {
                     return match.replace(args, GraphicsConverter.arcTo.execute(args, ratio));
                 });
@@ -111,7 +112,7 @@ TFCRatioConverter.prototype.convert = function() {
             // quadraticCurveTo
             if ( /\.(?:qt|quadraticCurveTo)\(.+?\)/g.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' converting quadraticCurveToTo.');
+                log('line: ' + this.line + ' converting quadraticCurveToTo.');
                 src = src.replace(/\.(?:qt|quadraticCurveToTo)\((.+?)\)/g, function(match, args) {
                     return match.replace(args, GraphicsConverter.quadraticCurveTo.execute(args, ratio));
                 });
@@ -120,7 +121,7 @@ TFCRatioConverter.prototype.convert = function() {
             // lineTo
             if ( /\.(?:lt|lineTo)\(.+?\)/g.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' converting lineTo.');
+                log('line: ' + this.line + ' converting lineTo.');
                 src = src.replace(/\.(?:lt|lineTo)\((.+?)\)/g, function(match, args) {
                     return match.replace(args, GraphicsConverter.lineTo.execute(args, ratio));
                 });
@@ -129,7 +130,7 @@ TFCRatioConverter.prototype.convert = function() {
             // bezierCurveTo
             if ( /\.(?:bt|bezierCurveTo)\(.+?\)/g.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' converting bezierCurveTo.');
+                log('line: ' + this.line + ' converting bezierCurveTo.');
                 src = src.replace(/\.(?:bt|bezierCurveTo)\((.+?)\)/g, function(match, args) {
                     return match.replace(args, GraphicsConverter.bezierCurveTo.execute(args, ratio));
                 });
@@ -138,7 +139,7 @@ TFCRatioConverter.prototype.convert = function() {
             // rect
             if ( /\.(?:r|rect)\(.+?\)/g.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' converting rect.');
+                log('line: ' + this.line + ' converting rect.');
                 src = src.replace(/\.(?:r|rect)\((.+?)\)/g, function(match, args) {
                     return match.replace(args, GraphicsConverter.rect.execute(args, ratio));
                 });
@@ -147,7 +148,7 @@ TFCRatioConverter.prototype.convert = function() {
             // beginLinearGradientFill
             if ( /\.(?:lf|beginLinearGradientFill)\(.+?\)/g.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' converting beginLinearGradientFill.');
+                log('line: ' + this.line + ' converting beginLinearGradientFill.');
                 src = src.replace(/\.(?:lf|beginLinearGradientFill)\((.+?)\)(?:\.|;)/g, function(match, args) {
                     return match.replace(args, GraphicsConverter.beginLinearGradientFill.execute(args, ratio));
                 });
@@ -156,7 +157,7 @@ TFCRatioConverter.prototype.convert = function() {
             // beginLinearGradientStroke
             if ( /\.(?:ls|beginLinearGradientStroke)\(.+?\)/g.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' converting beginLinearGradientStroke.');
+                log('line: ' + this.line + ' converting beginLinearGradientStroke.');
                 src = src.replace(/\.(?:lf|beginLinearGradientStroke)\((.+?)\)(?:\.|;)/g, function(match, args) {
                     return match.replace(args, GraphicsConverter.beginLinearGradientStroke.execute(args, ratio));
                 });
@@ -165,7 +166,7 @@ TFCRatioConverter.prototype.convert = function() {
             // beginRadialGradientFill
             if ( /\.(?:rf|beginRadialGradientFill)\(.+?\)/g.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' converting beginRadialGradientFill.');
+                log('line: ' + this.line + ' converting beginRadialGradientFill.');
                 src = src.replace(/\.(?:rf|beginRadialGradientFill)\((.+?)\)(?:\.|;)/g, function(match, args) {
                     return match.replace(args, GraphicsConverter.beginRadialGradientFill.execute(args, ratio));
                 });
@@ -174,7 +175,7 @@ TFCRatioConverter.prototype.convert = function() {
             // beginRadialGradientStroke
             if ( /\.(?:rs|beginRadialGradientStroke)\(.+?\)/g.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' converting beginRadialGradientStroke.');
+                log('line: ' + this.line + ' converting beginRadialGradientStroke.');
                 src = src.replace(/\.(?:lf|beginRadialGradientStroke)\((.+?)\)(?:\.|:)/g, function(match, args) {
                     return match.replace(args, GraphicsConverter.beginRadialGradientStroke.execute(args, ratio));
                 });
@@ -183,7 +184,7 @@ TFCRatioConverter.prototype.convert = function() {
             // drawRect
             if ( /\.(?:dr|drawRect)\(.+?\)/.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' converting drawRect.');
+                log('line: ' + this.line + ' converting drawRect.');
                 src = src.replace(/\.(?:dr|drawRect)\((.+?)\)/g, function(match, args) {
                     return match.replace(args, GraphicsConverter.drawRect.execute(args, ratio));
                 });
@@ -192,7 +193,7 @@ TFCRatioConverter.prototype.convert = function() {
             // drawRoundRect
             if ( /\.(?:rr|drawRoundRect)\(.+?\)/.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' converting drawRoundRect.');
+                log('line: ' + this.line + ' converting drawRoundRect.');
                 src = src.replace(/\.(?:rr|drawRoundRect)\((.+?)\)/g, function(match, args) {
                     return match.replace(args, GraphicsConverter.drawRoundRect.execute(args, ratio));
                 });
@@ -201,7 +202,7 @@ TFCRatioConverter.prototype.convert = function() {
             // drawRoundRectComplex
             if ( /\.(?:rc|drawRoundRectComplex)\(.+?\)/.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' converting drawRoundRectComplex.');
+                log('line: ' + this.line + ' converting drawRoundRectComplex.');
                 src = src.replace(/\.(?:rc|drawRoundRectComplex)\((.+?)\)/g, function(match, args) {
                     return match.replace(args, GraphicsConverter.drawRoundRectComplex.execute(args, ratio));
                 });
@@ -210,7 +211,7 @@ TFCRatioConverter.prototype.convert = function() {
             // drawEllipse
             if ( /\.(?:de|drawEllipse)\(.+?\)/.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' converting drawEllipse.');
+                log('line: ' + this.line + ' converting drawEllipse.');
                 src = src.replace(/\.(?:de|drawEllipse)\((.+?)\)/g, function(match, args) {
                     return match.replace(args, GraphicsConverter.drawEllipse.execute(args, ratio));
                 });
@@ -219,7 +220,7 @@ TFCRatioConverter.prototype.convert = function() {
             // drawCircle
             if ( /\.(?:dc|drawCircle)\(.+?\)/.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' converting drawCircle.');
+                log('line: ' + this.line + ' converting drawCircle.');
                 src = src.replace(/\.(?:dc|drawCircle)\((.+?)\)/g, function(match, args) {
                     return match.replace(args, GraphicsConverter.drawCircle.execute(args, ratio));
                 });
@@ -228,7 +229,7 @@ TFCRatioConverter.prototype.convert = function() {
             // drawPolyStar
             if ( /\.(?:dp|drawPolyStar)\(.+?\)/.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' converting drawPolyStar.');
+                log('line: ' + this.line + ' converting drawPolyStar.');
                 src = src.replace(/\.(?:dp|drawPolyStar)\((.+?)\)/g, function(match, args) {
                     return match.replace(args, GraphicsConverter.drawPolyStar.execute(args, ratio));
                 });
@@ -237,7 +238,7 @@ TFCRatioConverter.prototype.convert = function() {
             // decodePath
             if ( /\.(?:p|decodePath)\(.+?\)/.test(src) ) {
                 ++times;
-                console.log('line: ' + this.line + ' converting decodePath.');
+                log('line: ' + this.line + ' converting decodePath.');
                 src = src.replace(/\.(?:p|decodePath)\((.+?)\)/g, function(match, args) {
                     return match.replace(args, GraphicsConverter.decodePath.execute(args, ratio));
                 });
@@ -247,7 +248,7 @@ TFCRatioConverter.prototype.convert = function() {
         this.lines[i] = src;
     }
 
-    console.log('Convert finished! ' + times + ' times convert proceeded.');
+    log('Convert finished! ' + times + ' times convert proceeded.');
 
     return this.lines.join('\n');
 };
@@ -265,20 +266,20 @@ TFCRatioConverter.showUsage = function() {
     console.log('Usage: TFCRationConverter target_file [arguments]');
     console.log('');
     console.log('arguments:');
-    console.log('  -o, --output   convert output file. If empty, output filename will be replaced [target_file_body]-ratio[ratio].js.');
-    console.log('  -r, --ratio    convert ratio. path caluculated by this rate. ( default 2 )');
+    console.log('  -o, --output     convert output file. If empty, output filename will be replaced [target_file_body]-ratio[ratio].js.');
+    console.log('  -r, --ratio      convert ratio. path caluculated by this rate. ( default 2 )');
+    console.log('  -v, --verbose    verbose processing log.');
 };
 
-var args       = Argv.parse();
 var targetFile = process.argv[2];
 
-if ( args.get('help') !== null || ! targetFile || path.extname(targetFile) !== '.js' ) {
+if ( Argv.get('help') !== null || ! targetFile || path.extname(targetFile) !== '.js' ) {
     TFCRatioConverter.showUsage();
     process.exit(0);
 }
-var tfc    = new TFCRatioConverter(path.resolve(process.cwd() + '/' + targetFile), args.get('ratio'));
+var tfc    = new TFCRatioConverter(path.resolve(process.cwd() + '/' + targetFile), Argv.get('ratio'));
 var buffer = tfc.convert();
-var dest   = args.get('output') || tfc.getConvertedFileName();
+var dest   = Argv.get('output') || tfc.getConvertedFileName();
 
 fs.writeFile(dest, buffer, {encoding:'utf8'}, function(err) {
     if ( err ) {
